@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table.tsx";
 import DeviceRating from "@/components/dashboard/device/device-rating.tsx";
 import { FaApple } from "react-icons/fa";
-import Image from "@/components/ui/image.tsx";
+import Image from "@/components/ui/custom/image.tsx";
 
 const DeviceDescription = () => {
   const device = {

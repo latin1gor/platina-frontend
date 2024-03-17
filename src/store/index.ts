@@ -3,12 +3,14 @@ import userReducer from "./userSlice.ts";
 import deviceReducer from "./deviceSlice.ts";
 import headerReducer from "./ui/headerSlice.ts";
 import drawerSlice from "@/store/ui/drawerSlice.ts";
+import usersListSlice from "@/store/admin/usersListSlice.ts";
 export const store = configureStore({
   reducer: {
     user: userReducer,
     device: deviceReducer,
     header: headerReducer,
     drawer: drawerSlice,
+    usersList: usersListSlice,
   },
 });
 

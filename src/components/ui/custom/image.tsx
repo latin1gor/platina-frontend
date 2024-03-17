@@ -1,5 +1,5 @@
 import { zoomies } from "ldrs";
-import { loaderColor } from "@/lib/constants.ts";
+import { primaryColor as loaderColor } from "@/lib/constants.ts";
 import { useEffect, useState } from "react";
 
 interface ImageProps {

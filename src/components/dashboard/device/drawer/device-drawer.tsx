@@ -10,7 +10,7 @@ import DrawerTable from "@/components/dashboard/device/drawer/drawer-table.tsx";
 import { useAppDispatch } from "@/hooks/redux";
 import { setOpen } from "@/store/ui/drawerSlice.ts";
 import { useNavigate } from "react-router-dom";
-import Image from "@/components/ui/image.tsx";
+import Image from "@/components/ui/custom/image.tsx";
 
 const device = {
   id: 2,

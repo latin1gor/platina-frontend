@@ -8,7 +8,7 @@ import { z } from "zod";
 import { signInSchema, signUpSchema } from "@/types/validation.ts";
 import { instance } from "@/services";
 import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode, JwtPayload } from "jwt-decode";
 
 interface IUserState {
   loading: boolean;
@@ -18,16 +18,24 @@ interface IUserState {
 }
 
 const accessToken = Cookies.get("token");
-const checkTokenExpired = (token) => {
-  const decodedToken = jwtDecode(token);
-  const expireTime = decodedToken.exp;
-  if (expireTime) {
-    const currentTime = Date.now() / 1000;
-    if (expireTime < currentTime) {
-      return null;
-    } else {
-      return decodedToken;
+const checkTokenExpired = (token: string): User | null => {
+  try {
+    const decodedToken = jwtDecode<JwtPayload & User>(token); // Assuming JwtPayload includes standard JWT fields like iat and exp
+    const expireTime = decodedToken.exp;
+    if (expireTime) {
+      const currentTime = Date.now() / 1000;
+      if (expireTime < currentTime) {
+        return null; // Token is expired, return null
+      } else {
+        // Token is valid, return user data by omitting JWT-specific fields
+        const { iat, exp, ...userData } = decodedToken;
+        return userData; // Assuming userData matches the User interface
+      }
     }
+    return null; // If there's no expireTime, return null
+  } catch (error) {
+    console.error("Error decoding token: ", error);
+    return null; // In case of any error, return null
   }
 };
 

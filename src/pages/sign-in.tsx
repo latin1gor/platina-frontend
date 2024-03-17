@@ -37,7 +37,7 @@ const SignIn = () => {
 
   const onSubmit = async (values: z.infer<typeof signInSchema>) => {
     const res = await dispatch(login(values));
-    if (res.payload.token) {
+    if (res.payload?.token) {
       navigate("/dashboard");
     }
   };
