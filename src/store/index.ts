@@ -1,15 +1,19 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./userSlice.ts";
-import deviceReducer from "./deviceSlice.ts";
+import userReducer from "@/store/features/auth/userSlice.ts";
+import deviceReducer from "./features/devices/deviceSlice.ts";
+import brandReducer from "@/store/features/brands/brandSlice.ts";
+import typeReducer from "@/store/features/types/typeSlice.ts";
 import headerReducer from "./ui/headerSlice.ts";
-import drawerSlice from "@/store/ui/drawerSlice.ts";
-import usersListSlice from "@/store/admin/usersListSlice.ts";
+import usersListSlice from "@/store/features/admin/usersListSlice.ts";
+import modalSlice from "@/store/ui/modalSlice.ts";
 export const store = configureStore({
   reducer: {
     user: userReducer,
     device: deviceReducer,
+    brand: brandReducer,
+    type: typeReducer,
     header: headerReducer,
-    drawer: drawerSlice,
+    modal: modalSlice,
     usersList: usersListSlice,
   },
 });

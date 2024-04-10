@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { routes } from "@/router/routes.ts";
 import { LogoutDropdown } from "@/components/header/logout-dropdown.tsx";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux.tsx";
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { ShoppingCart } from "lucide-react";
 import { Tab, Tabs } from "@/router/tabs.ts";
@@ -60,8 +60,11 @@ const Header = ({ isAuth }: HeaderProps) => {
             onClick={() => onLogoClick()}
           >
             <img src={"/logo.png"} className={"h-14 w-16"} alt={"logo"} />
-            <h1 className={"font-bold text-stone-300 mr-1"}>platina/ua</h1>
+            {!isAuth && (
+              <h1 className={"font-bold text-stone-300 mr-1"}>platina/ua</h1>
+            )}
           </div>
+
           {tabs &&
             tabs.map((tab) => (
               <h1
@@ -96,17 +99,12 @@ const Header = ({ isAuth }: HeaderProps) => {
           <div className={"flex justify-between items-center"}>
             <Button
               variant={"ghost"}
-              className={"mr-2"}
+              className={"mr-2 border"}
               onClick={() => navigate(routes.SIGNIN)}
             >
               Log in
             </Button>
-            <Button
-              variant={"secondary"}
-              onClick={() => navigate(routes.REGISTER)}
-            >
-              Sign Up
-            </Button>
+            <Button onClick={() => navigate(routes.REGISTER)}>Sign Up</Button>
           </div>
         )}
       </div>

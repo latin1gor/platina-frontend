@@ -57,10 +57,6 @@ export const router = createBrowserRouter([
   },
   {
     path: routes.UNDEFINED,
-    element: (
-      <ProtectedRoute>
-        <SignIn />
-      </ProtectedRoute>
-    ),
+    element: <div>Hello world</div>,
   },
 ]);

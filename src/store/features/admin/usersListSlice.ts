@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { instance } from "@/services";
+import { instance } from "@/api/axiosInstance.ts";
 import { UserRow } from "@/components/admin/users/users-table.tsx";
 
 interface IUsersList {

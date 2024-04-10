@@ -14,8 +14,9 @@ import {
 } from "@/components/ui/form.tsx";
 import { Input } from "@/components/ui/input.tsx";
 import { Button } from "@/components/ui/button.tsx";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux.tsx";
-import { clearError, register } from "@/store/userSlice.ts";
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore.tsx";
+import { clearError } from "@/store/features/auth/userSlice.ts";
+import { register } from "@/store/services/authService.ts";
 import { FormError } from "@/components/auth/form-error.tsx";
 import { useEmail } from "@/hooks/useEmail.tsx";
 import { useEffect } from "react";

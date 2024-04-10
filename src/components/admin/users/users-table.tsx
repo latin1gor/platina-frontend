@@ -33,8 +33,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux.tsx";
-import { getAllUsers } from "@/store/admin/usersListSlice.ts";
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore.tsx";
+import { getAllUsers } from "@/store/features/admin/usersListSlice.ts";
 import { Badge } from "@/components/ui/badge.tsx";
 import Loader from "@/components/ui/custom/loader.tsx";
 
