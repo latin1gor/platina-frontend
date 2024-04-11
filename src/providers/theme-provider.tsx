@@ -5,6 +5,9 @@ import {
   useEffect,
   useState,
 } from "react";
+import { cn } from "@/lib/utils.ts";
+import { useAppSelector } from "@/hooks/useStore.tsx";
+import { Toaster } from "sonner";
 
 type Theme = "dark" | "light" | "system";
 
@@ -35,6 +38,9 @@ export function ThemeProvider({
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme,
   );
+  const { isDrawerOpen, isTypeOpen, isBrandOpen, isDeviceOpen } =
+    useAppSelector((state) => state.modal);
+  const isModalOpen = isTypeOpen || isBrandOpen || isDeviceOpen;
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -63,11 +69,29 @@ export function ThemeProvider({
   };
 
   return (
-    <div className={"max-w-screen-2xl m-auto"}>
-      <ThemeProviderContext.Provider {...props} value={value}>
+    <ThemeProviderContext.Provider {...props} value={value}>
+      <div
+        className={cn(
+          "absolute inset-0 bg-black z-0 transition duration-300 ease-in-out",
+          {
+            "scale-[96%] transition duration-500 ease-in-out blur-sm":
+              isDrawerOpen,
+            "transition duration-300 ease-in-out blur-sm": isModalOpen,
+          },
+        )}
+      >
         {children}
-      </ThemeProviderContext.Provider>
-    </div>
+      </div>
+      <Toaster
+        toastOptions={{
+          classNames: {
+            success:
+              "rounded-lg border bg-card text-card-foreground shadow-sm border-stone-800",
+            icon: `text-primary`,
+          },
+        }}
+      />
+    </ThemeProviderContext.Provider>
   );
 }
 

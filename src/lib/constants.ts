@@ -3,4 +3,4 @@ export const roles = [
   { id: 2, value: "USER", title: "User" },
 ];
 
-export const loaderColor = "#6D27D9";
+export const primaryColor = "#6D27D9";

@@ -14,8 +14,9 @@ import {
 import { Input } from "@/components/ui/input.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { routes } from "@/router/routes.ts";
-import { clearError, login } from "@/store/userSlice.ts";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux.tsx";
+import { clearError } from "@/store/features/auth/userSlice.ts";
+import { login } from "@/store/services/authService.ts";
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore.tsx";
 import { FormError } from "@/components/auth/form-error.tsx";
 import { useEffect } from "react";
 
@@ -26,7 +27,7 @@ const SignIn = () => {
 
   useEffect(() => {
     dispatch(clearError());
-  }, []);
+  }, [dispatch]);
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -37,7 +38,7 @@ const SignIn = () => {
 
   const onSubmit = async (values: z.infer<typeof signInSchema>) => {
     const res = await dispatch(login(values));
-    if (res.payload.token) {
+    if (res.payload?.token) {
       navigate("/dashboard");
     }
   };

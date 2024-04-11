@@ -7,77 +7,94 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer.tsx";
 import DrawerTable from "@/components/dashboard/device/drawer/drawer-table.tsx";
-import { useAppDispatch } from "@/hooks/redux";
-import { setOpen } from "@/store/ui/drawerSlice.ts";
+import { useAppDispatch } from "@/hooks/useStore.tsx";
+import { setDrawerOpen } from "@/store/ui/modalSlice.ts";
 import { useNavigate } from "react-router-dom";
-import Image from "@/components/ui/image.tsx";
-
-const device = {
-  id: 2,
-  name: "Apple iPhone 15 Pro 256GB (Black Titanium)",
-  price: 990,
-  rating: 5,
-  img: "https://s7d1.scene7.com/is/image/dish/iPhone_14_Pro_Deep_Purple_phonewall?$ProductBase$&fmt=webp",
-};
-const description = [
-  { id: 1, title: "RAM", description: "8gb" },
-  { id: 2, title: "Camera", description: "12MP" },
-  { id: 3, title: "Processor", description: "M1 Pro" },
-  { id: 4, title: "Units amount", description: "6" },
-  { id: 5, title: "Battery", description: "5000 m/Ah" },
-];
+import Image from "@/components/ui/custom/image.tsx";
+import { useEffect, useState } from "react";
+import { Device } from "@/types/device.ts";
+import { fetchOneDevice } from "@/store/services/deviceService.ts";
 
 type DeviceDrawerProps = {
-  id: number;
+  id: string;
 };
 export function DeviceDrawer({ id }: DeviceDrawerProps) {
+  const [device, setDevice] = useState<Device | null>(null);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  useEffect(() => {
+    const getDevice = async () => {
+      const response = await fetchOneDevice(id);
+      return response.data;
+    };
+
+    getDevice().then((data) => setDevice(data));
+  }, []);
   return (
-    <Drawer onOpenChange={(e) => dispatch(setOpen(e))}>
-      <DrawerTrigger asChild>
+    <>
+      {device ? (
+        <Drawer onOpenChange={(e) => dispatch(setDrawerOpen(e))}>
+          <DrawerTrigger asChild>
+            <Button
+              variant="secondary"
+              className="bg-stone-900 pr-5 hover:bg-purple-700 text-xs h-6"
+            >
+              <Search className="mr-1" size={18} />
+              Quick
+            </Button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <div className={"flex flex-col"}>
+              <div className={"flex w-full justify-between"}>
+                <Image
+                  className={"!w-[350px] !h-[350px]"}
+                  containerClassName={"!w-[350px] !h-[350px] m-10 w-[20%]"}
+                  src={import.meta.env.VITE_API_URL + "/" + device.img}
+                />
+                <div className={"flex flex-col w-[80%]"}>
+                  <div
+                    className={
+                      "mb-10 w-full overflow-x-scroll overflow-y-auto h-72"
+                    }
+                  >
+                    <DrawerTable description={device.info} />
+                  </div>
+                  <div className={" space-x-3"}>
+                    <Button
+                      className={"w-56"}
+                      onClick={() => {
+                        navigate(`/device/${id}`);
+                        dispatch(setDrawerOpen(false));
+                      }}
+                    >
+                      See more
+                    </Button>
+
+                    <DrawerClose asChild>
+                      <Button
+                        className={"w-56"}
+                        variant="outline"
+                        onClick={() => dispatch(setDrawerOpen(false))}
+                      >
+                        Cancel
+                      </Button>
+                    </DrawerClose>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </DrawerContent>
+        </Drawer>
+      ) : (
         <Button
           variant="secondary"
-          className="bg-stone-900 pr-5 hover:bg-black text-xs h-6"
+          className="bg-stone-900 pr-5 hover:bg-purple-700 text-xs h-6"
         >
           <Search className="mr-1" size={18} />
           Quick
         </Button>
-      </DrawerTrigger>
-      <DrawerContent>
-        <div className={"flex flex-col"}>
-          <div className={"flex justify-around items-center w-full h-[26rem]"}>
-            <Image className={"w-96 h-96 m-20"} src={device.img} />
-            <div className={"flex flex-col w-full"}>
-              <div
-                className={
-                  "mb-10 w-full overflow-x-scroll overflow-y-auto h-72"
-                }
-              >
-                <DrawerTable description={description} />
-              </div>
-              <div className={" space-x-3"}>
-                <Button
-                  className={"w-56"}
-                  onClick={() => navigate(`/device/${id}`)}
-                >
-                  See more
-                </Button>
-
-                <DrawerClose asChild>
-                  <Button
-                    className={"w-56"}
-                    variant="outline"
-                    onClick={() => dispatch(setOpen(false))}
-                  >
-                    Cancel
-                  </Button>
-                </DrawerClose>
-              </div>
-            </div>
-          </div>
-        </div>
-      </DrawerContent>
-    </Drawer>
+      )}
+    </>
   );
 }

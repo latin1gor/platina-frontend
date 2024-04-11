@@ -1,4 +1,4 @@
-import DeviceDescription from "@/components/dashboard/device/device-description.tsx";
+import DevicePage from "@/components/dashboard/device/device-page.tsx";
 import { useEffect } from "react";
 import withLayout from "@/providers/withLayout.tsx";
 
@@ -8,10 +8,8 @@ const Device = () => {
   }, []);
   return (
     <>
-      <DeviceDescription />
-      <div className={"m-20"}></div>
+      <DevicePage />
       <div className={"h-1"} />
-      <div className={"justify-self-start"}></div>
     </>
   );
 };

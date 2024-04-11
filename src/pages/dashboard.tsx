@@ -2,6 +2,7 @@ import Typebar from "@/components/dashboard/typebar.tsx";
 import Brandbar from "@/components/dashboard/brandbar.tsx";
 import DeviceList from "@/components/dashboard/device/device-list.tsx";
 import withLayout from "@/providers/withLayout.tsx";
+import Pages from "@/components/dashboard/pages/pages.tsx";
 
 const Dashboard = () => {
   return (
@@ -10,10 +11,8 @@ const Dashboard = () => {
       <div className={"flex flex-col w-[90%] ml-5"}>
         <Brandbar />
         <DeviceList />
+        <Pages />
       </div>
-
-      <div className={"justify-self-start"}></div>
-      <div></div>
     </div>
   );
 };

@@ -1,13 +1,43 @@
-import { useAppSelector } from "@/hooks/redux.tsx";
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore.tsx";
 import DeviceItem from "@/components/dashboard/device/device-item.tsx";
+import { useEffect } from "react";
+import { fetchDevices } from "@/store/services/deviceService.ts";
 
 const DeviceList = () => {
-  const { devices } = useAppSelector((state) => state.device);
+  const dispatch = useAppDispatch();
+  const { devices, activePage, limit } = useAppSelector(
+    (state) => state.device,
+  );
+  const selectedType = useAppSelector((state) => state.type.selectedType);
+  const selectedBrand = useAppSelector((state) => state.brand.selectedBrand);
 
+  useEffect(() => {
+    dispatch(
+      fetchDevices({
+        brandId: null,
+        typeId: null,
+        limit,
+        page: activePage,
+      }),
+    );
+  }, []);
+
+  useEffect(() => {
+    dispatch(
+      fetchDevices({
+        brandId: selectedBrand?.id,
+        typeId: selectedType?.id,
+        limit,
+        page: activePage,
+      }),
+    );
+  }, [activePage, selectedType, selectedBrand]);
+
+  useEffect(() => {}, []);
   return (
     <div
       className={
-        "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 m-4 ml-0"
+        "grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 m-4 ml-0 min-h-[70vh]"
       }
     >
       {devices &&

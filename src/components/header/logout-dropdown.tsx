@@ -27,7 +27,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage } from "@/components/ui/avatar.tsx";
-import { useAppSelector } from "@/hooks/redux.tsx";
+import { useAppSelector } from "@/hooks/useStore.tsx";
 import { useState } from "react";
 import { clsx } from "clsx";
 import { Badge } from "@/components/ui/badge.tsx";
