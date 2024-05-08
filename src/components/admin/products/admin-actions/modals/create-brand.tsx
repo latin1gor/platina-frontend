@@ -16,7 +16,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/useStore.tsx";
 import { setBrandOpen as setModalOpen } from "@/store/ui/modalSlice.ts";
 import { toast } from "sonner";
 import React, { useState } from "react";
-import { createBrand } from "@/store/services/brandService.ts";
+import { createBrand, fetchBrands } from "@/store/services/brandService.ts";
 import { getNiceDateString } from "@/lib/utils.ts";
 
 const CreateBrand = () => {
@@ -30,6 +30,7 @@ const CreateBrand = () => {
         toast.success(`Brand "${brand}" has been created`, {
           description: getNiceDateString(),
         });
+        dispatch(fetchBrands());
       } else {
         toast.error(`Brand hasn't been created`, {
           description: "Try again later.",

@@ -1,8 +1,12 @@
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import { fetchBrands } from "@/store/services/brandService.ts";
 
+interface IBrands {
+  rows: { id: number; name: string }[] | null;
+  count: number;
+}
 interface IBrand {
-  brands: { id: number; name: string }[] | null;
+  brands: IBrands | null;
   selectedBrand: { id: number } | null;
   loading: boolean;
   error: boolean | string;

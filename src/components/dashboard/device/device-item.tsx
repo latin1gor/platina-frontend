@@ -4,15 +4,18 @@ import { Separator } from "@/components/ui/separator.tsx";
 import { useNavigate } from "react-router-dom";
 import { DeviceDrawer } from "@/components/dashboard/device/drawer/device-drawer.tsx";
 import Image from "@/components/ui/custom/image.tsx";
+import { cn } from "@/lib/utils.ts";
+import { useResponsive } from "@/hooks/useResponsive.tsx";
 
 const DeviceItem: FC<{ device: Device }> = ({ device }) => {
   const navigate = useNavigate();
-
+  const { isSmallScreen } = useResponsive();
   return (
     <div
-      className={
-        "flex flex-col items-center justify-between h-72 w-full text-center border-2 border-stone-800 rounded-xl cursor-pointer bg-stone-900 hover:bg-stone-800 transition duration-300 ease-in-out"
-      }
+      className={cn(
+        "flex flex-col items-center justify-between w-full text-center border-2 border-stone-800 rounded-xl cursor-pointer bg-stone-900 hover:bg-stone-800 transition duration-300 ease-in-out",
+        isSmallScreen ? "h-[400px]" : "h-80",
+      )}
     >
       <div
         className={
@@ -24,8 +27,14 @@ const DeviceItem: FC<{ device: Device }> = ({ device }) => {
       >
         <Image
           src={import.meta.env.VITE_API_URL + "/" + device.img}
-          className={"h-44 w-full rounded-t-lg rounded-b-none"}
-          containerClassName={"w-full  rounded-b-none h-44"}
+          className={cn(
+            "w-full rounded-t-lg rounded-b-none",
+            isSmallScreen ? "h-64" : "h-56",
+          )}
+          containerClassName={cn(
+            "w-full rounded-b-none",
+            isSmallScreen ? "h-64" : "h-56",
+          )}
           isSkeletonFull={true}
         />
         <h2 className={"font-bold w-full px-2 text-sm text-center pb-3"}>

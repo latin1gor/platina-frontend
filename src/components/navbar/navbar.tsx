@@ -1,39 +1,44 @@
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { routes } from "@/router/routes.ts";
-import { LogoutDropdown } from "@/components/header/logout-dropdown.tsx";
+import { LogoutDropdown } from "@/components/navbar/logout-dropdown.tsx";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore.tsx";
 import { Button } from "@/components/ui/button.tsx";
-import { ShoppingCart } from "lucide-react";
 import { Tab, Tabs } from "@/router/tabs.ts";
 import { setSelectedTab } from "@/store/ui/headerSlice.ts";
 import { clsx } from "clsx";
+import ShoppingBasket from "@/components/navbar/shopping-basket.tsx";
+import { useResponsive } from "@/hooks/useResponsive.tsx";
+import { clearUser } from "@/store/features/auth/userSlice.ts";
 
 interface HeaderProps {
   isAuth: boolean;
 }
-const Header = ({ isAuth }: HeaderProps) => {
+const Navbar = ({ isAuth }: HeaderProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
   const { userTabs, adminTabs, publicTabs, selectedTab } = useAppSelector(
     (state) => state.header,
   );
+  const { isSmallScreen } = useResponsive();
 
   const logout = () => {
     Cookies.remove("token");
     navigate(routes.SIGNIN);
+    dispatch(clearUser());
   };
 
   const onTabSelect = (tab: Tab) => {
     navigate(`${tab?.path}`);
-    dispatch(setSelectedTab({ id: tab.id }));
   };
 
   const onLogoClick = () => {
     if (!isAuth) {
       navigate(routes.LANDING);
       dispatch(setSelectedTab(null));
+    } else {
+      navigate(routes.DASHBOARD);
     }
   };
 
@@ -59,13 +64,14 @@ const Header = ({ isAuth }: HeaderProps) => {
             className={"flex items-center justify-between cursor-pointer "}
             onClick={() => onLogoClick()}
           >
-            <img src={"/logo.png"} className={"h-14 w-16"} alt={"logo"} />
-            {!isAuth && (
+            <img src={"/logo.png"} className={"h-14 min-w-16"} alt={"logo"} />
+            {!isAuth && !isSmallScreen && (
               <h1 className={"font-bold text-stone-300 mr-1"}>platina/ua</h1>
             )}
           </div>
 
           {tabs &&
+            !isSmallScreen &&
             tabs.map((tab) => (
               <h1
                 key={tab.id}
@@ -82,17 +88,7 @@ const Header = ({ isAuth }: HeaderProps) => {
         <div></div>
         {isAuth ? (
           <div className={"flex items-center"}>
-            <Button
-              className={
-                "relative mr-5 p-1.5 h-10 w-10 bg-gradient hover:shadow-2xl"
-              }
-            >
-              <ShoppingCart />
-
-              <span className="absolute top-0 right-0 bg-red-500 h-4 w-4 rounded-full text-xs">
-                2
-              </span>
-            </Button>
+            <ShoppingBasket />
             <LogoutDropdown logout={logout} />
           </div>
         ) : (
@@ -112,4 +108,4 @@ const Header = ({ isAuth }: HeaderProps) => {
   );
 };
 
-export default Header;
+export default Navbar;

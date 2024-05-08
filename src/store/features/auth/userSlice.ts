@@ -29,6 +29,7 @@ const userSlice = createSlice({
     },
     clearUser(state) {
       state.user = null;
+      state.token = null;
     },
   },
   extraReducers: (builder: ActionReducerMapBuilder<IUserState>) => {

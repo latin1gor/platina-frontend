@@ -28,7 +28,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { DeviceDescription } from "@/types/device.ts";
 import { fetchBrands } from "@/store/services/brandService.ts";
 import { fetchTypes } from "@/store/services/typeService.ts";
-import { createDevice } from "@/store/services/deviceService.ts";
+import { createDevice, fetchDevices } from "@/store/services/deviceService.ts";
 
 const CreateDevice = () => {
   const [name, setName] = useState<string>("");
@@ -42,6 +42,14 @@ const CreateDevice = () => {
   useEffect(() => {
     dispatch(fetchBrands());
     dispatch(fetchTypes());
+    dispatch(
+      fetchDevices({
+        brandId: null,
+        typeId: null,
+        limit: null,
+        page: null,
+      }),
+    );
   }, []);
 
   const { brands } = useAppSelector((state) => state.brand);
@@ -55,11 +63,11 @@ const CreateDevice = () => {
   };
 
   const handleSelectBrand = (value: string) => {
-    const selectedBrand = brands?.find((brand) => brand.name === value);
+    const selectedBrand = brands?.rows?.find((brand) => brand.name === value);
     setBrand(selectedBrand || null);
   };
   const handleSelectType = (value: string) => {
-    const selectedType = types?.find((brand) => brand.name === value);
+    const selectedType = types?.rows?.find((brand) => brand.name === value);
     setType(selectedType || null);
   };
   const changeProperty = (key: string, value: string, number: number) => {
@@ -80,6 +88,14 @@ const CreateDevice = () => {
         toast.success(`Device "${name}" has been created`, {
           description: "Sunday, December 03, 2023 at 9:00 AM",
         });
+        dispatch(
+          fetchDevices({
+            brandId: null,
+            typeId: null,
+            limit: null,
+            page: null,
+          }),
+        );
       } else {
         toast.error("Device hasn't been created", {
           description: "Sunday, December 03, 2023 at 9:00 AM",
@@ -119,7 +135,7 @@ const CreateDevice = () => {
         </DialogHeader>
 
         <div className="py-4 space-y-5">
-          {types?.length ? (
+          {types?.rows?.length ? (
             <Select onValueChange={(e) => handleSelectType(e)}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select type" />
@@ -127,7 +143,7 @@ const CreateDevice = () => {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Types</SelectLabel>
-                  {types.map((type) => (
+                  {types.rows.map((type) => (
                     <SelectItem value={type.name}>{type.name}</SelectItem>
                   ))}
                 </SelectGroup>
@@ -138,7 +154,7 @@ const CreateDevice = () => {
               First add at least 1 type
             </div>
           )}
-          {brands?.length ? (
+          {brands?.rows?.length ? (
             <Select onValueChange={(e) => handleSelectBrand(e)}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select brand" />
@@ -146,7 +162,7 @@ const CreateDevice = () => {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Brands</SelectLabel>
-                  {brands.map((brand) => (
+                  {brands.rows.map((brand) => (
                     <SelectItem value={brand.name}>{brand.name}</SelectItem>
                   ))}
                 </SelectGroup>
@@ -200,7 +216,7 @@ const CreateDevice = () => {
                 />
                 <Button
                   variant={"destructive"}
-                  onClick={() => removeProperty(property.id)}
+                  onClick={() => removeProperty(property.number)}
                 >
                   Remove field
                 </Button>

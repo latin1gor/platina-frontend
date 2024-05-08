@@ -16,7 +16,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/useStore.tsx";
 import { setTypeOpen as setModalOpen } from "@/store/ui/modalSlice.ts";
 import { toast } from "sonner";
 import React, { useState } from "react";
-import { createType } from "@/store/services/typeService.ts";
+import { createType, fetchTypes } from "@/store/services/typeService.ts";
 import { getNiceDateString } from "@/lib/utils.ts";
 
 const CreateType = () => {
@@ -31,6 +31,7 @@ const CreateType = () => {
         toast.success(`Type "${type}" has been created`, {
           description: getNiceDateString(),
         });
+        dispatch(fetchTypes());
       } else {
         toast.error(`Type hasn't been created`, {
           description: "Try again later.",

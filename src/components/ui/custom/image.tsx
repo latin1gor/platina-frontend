@@ -1,13 +1,14 @@
 import { zoomies } from "ldrs";
-import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils.ts";
 import { Skeleton } from "@/components/ui/skeleton.tsx";
+import { useState } from "react";
 
 interface ImageProps {
   src: string;
   className: string;
   containerClassName?: string;
   isSkeletonFull?: boolean;
+  isSkeletonBordered?: boolean;
 }
 zoomies.register();
 
@@ -16,19 +17,25 @@ const Image = ({
   className,
   containerClassName,
   isSkeletonFull,
+  isSkeletonBordered,
 }: ImageProps) => {
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoaded(true);
-    }, 500);
-  }, []);
+  const [isLoaded] = useState<boolean>(true);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setIsLoaded(true);
+  //   }, 300);
+  // }, []);
   return (
     <div className={cn("flex items-center justify-center", containerClassName)}>
       {!isLoaded ? (
-        <div className="flex flex-col space-y-6 w-full h-full">
+        <div className="flex flex-col w-full h-full space-y-6">
           {isSkeletonFull ? (
-            <Skeleton className="h-full w-full rounded-t-lg rounded-b-none" />
+            <Skeleton
+              className={cn(
+                "h-full w-full rounded-b-none min-h-[80px] min-w-[80px]",
+                isSkeletonBordered ? "rounded-md" : "rounded-t-lg",
+              )}
+            />
           ) : (
             <>
               <Skeleton className="h-full w-full rounded-2xl" />

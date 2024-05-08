@@ -41,7 +41,6 @@ export function ThemeProvider({
   const { isDrawerOpen, isTypeOpen, isBrandOpen, isDeviceOpen } =
     useAppSelector((state) => state.modal);
   const isModalOpen = isTypeOpen || isBrandOpen || isDeviceOpen;
-
   useEffect(() => {
     const root = window.document.documentElement;
 

@@ -5,7 +5,9 @@ import brandReducer from "@/store/features/brands/brandSlice.ts";
 import typeReducer from "@/store/features/types/typeSlice.ts";
 import headerReducer from "./ui/headerSlice.ts";
 import usersListSlice from "@/store/features/admin/usersListSlice.ts";
+import basketSlice from "@/store/features/navbar/basketSlice.ts";
 import modalSlice from "@/store/ui/modalSlice.ts";
+
 export const store = configureStore({
   reducer: {
     user: userReducer,
@@ -15,6 +17,7 @@ export const store = configureStore({
     header: headerReducer,
     modal: modalSlice,
     usersList: usersListSlice,
+    basket: basketSlice,
   },
 });
 

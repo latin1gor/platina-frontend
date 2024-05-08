@@ -20,10 +20,10 @@ import { register } from "@/store/services/authService.ts";
 import { FormError } from "@/components/auth/form-error.tsx";
 import { useEmail } from "@/hooks/useEmail.tsx";
 import { useEffect } from "react";
+import { ChevronLeft } from "lucide-react";
 
 const Register = () => {
   const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
   const { error } = useAppSelector((state) => state.user);
   const { email } = useEmail();
@@ -31,6 +31,7 @@ const Register = () => {
   useEffect(() => {
     dispatch(clearError());
   }, []);
+
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -59,14 +60,23 @@ const Register = () => {
         }
       >
         <div className={"w-full flex flex-col justify-around h-full"}>
-          <div className={"flex justify-center items-center pr-6"}>
-            <h1
+          <div>
+            <ChevronLeft
               className={
-                "text-2xl sm:text-3xl md:text-4xl font-black text-zinc-200 text-center"
+                "cursor-pointer text-gray-200 hover:text-white justify-start"
               }
-            >
-              Create an account
-            </h1>
+              size={28}
+              onClick={() => navigate(routes.LANDING)}
+            />
+            <div className={"flex w-full justify-center items-center pr-6"}>
+              <h1
+                className={
+                  "text-2xl sm:text-3xl md:text-4xl font-black text-zinc-200 text-center"
+                }
+              >
+                Create an account
+              </h1>
+            </div>
           </div>
           <Form {...form}>
             <form

@@ -19,6 +19,7 @@ import { login } from "@/store/services/authService.ts";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore.tsx";
 import { FormError } from "@/components/auth/form-error.tsx";
 import { useEffect } from "react";
+import { ChevronLeft } from "lucide-react";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -60,9 +61,18 @@ const SignIn = () => {
         }
       >
         <div className={"w-full flex flex-col justify-around h-full"}>
-          <div className={"flex justify-center items-center pr-6"}>
-            <h1 className={"text-5xl font-black text-center"}>Sign in</h1>
+          <div>
+            <ChevronLeft
+              className={"cursor-pointer text-gray-200 hover:text-white"}
+              size={28}
+              onClick={() => navigate(routes.LANDING)}
+            />
+
+            <div className={"flex justify-center items-center pr-6"}>
+              <h1 className={"text-5xl font-black text-center"}>Sign in</h1>
+            </div>
           </div>
+
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}

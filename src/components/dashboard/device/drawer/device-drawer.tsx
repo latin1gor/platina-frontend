@@ -46,23 +46,31 @@ export function DeviceDrawer({ id }: DeviceDrawerProps) {
           </DrawerTrigger>
           <DrawerContent>
             <div className={"flex flex-col"}>
-              <div className={"flex w-full justify-between"}>
+              <div
+                className={"flex flex-col md:flex-row w-full justify-between"}
+              >
                 <Image
-                  className={"!w-[350px] !h-[350px]"}
-                  containerClassName={"!w-[350px] !h-[350px] m-10 w-[20%]"}
+                  className={"w-[90vw] md:w-[350px] h-[350px]"}
+                  containerClassName={
+                    "h-[350px] mt-2 md:m-10 w-full md:w-[350px]"
+                  }
                   src={import.meta.env.VITE_API_URL + "/" + device.img}
                 />
-                <div className={"flex flex-col w-[80%]"}>
+                <div className={"flex flex-col w-full md:w-[80%]"}>
                   <div
                     className={
-                      "mb-10 w-full overflow-x-scroll overflow-y-auto h-72"
+                      "mb-10 w-full overflow-x-scroll overflow-y-auto h-40 md:h-72"
                     }
                   >
                     <DrawerTable description={device.info} />
                   </div>
-                  <div className={" space-x-3"}>
+                  <div
+                    className={
+                      "md:space-x-3 gap-2 flex flex-col m-auto md:m-0 md:flex-row"
+                    }
+                  >
                     <Button
-                      className={"w-56"}
+                      className={"w-[90vw] md:w-56"}
                       onClick={() => {
                         navigate(`/device/${id}`);
                         dispatch(setDrawerOpen(false));
@@ -73,7 +81,7 @@ export function DeviceDrawer({ id }: DeviceDrawerProps) {
 
                     <DrawerClose asChild>
                       <Button
-                        className={"w-56"}
+                        className={"w-[90vw] md:w-56 mb-4 md:mb-0"}
                         variant="outline"
                         onClick={() => dispatch(setDrawerOpen(false))}
                       >
