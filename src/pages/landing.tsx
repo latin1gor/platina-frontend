@@ -19,7 +19,6 @@ const Landing = () => {
     dispatch(clearError());
     const checkAuthStatus = async () => {
       const action = await dispatch(checkAuth());
-      console.log(action.payload);
       if (!action.payload) {
         dispatch(clearUser());
       } else {

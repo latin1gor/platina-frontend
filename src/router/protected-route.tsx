@@ -16,7 +16,6 @@ const ProtectedRoute = ({ children }: PropsWithChildren) => {
       const action = await dispatch(checkAuth());
 
       if (!action.payload) {
-        console.log("clearing user");
         dispatch(clearUser());
       }
       setIsAuth(action.payload);
