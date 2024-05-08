@@ -45,14 +45,21 @@ export const login = createAsyncThunk(
 );
 
 export const checkAuth = createAsyncThunk("user/check", async () => {
+  const token = Cookies.get("token");
+  if (!token) {
+    console.error("No token available.");
+    return false;
+  }
+
   try {
     const response = await instance.get("/api/user/auth");
-    const token = response.data.token;
-    Cookies.set("token", token);
-    instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    const newToken = response.data.token;
+    Cookies.set("token", newToken);
+    instance.defaults.headers.common["Authorization"] = `Bearer ${newToken}`;
     return true;
   } catch (error) {
     Cookies.remove("token");
+    instance.defaults.headers.common["Authorization"] = "";
     console.error("Error while checking authentication:", error);
     return false;
   }

@@ -14,7 +14,9 @@ const ProtectedRoute = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       const action = await dispatch(checkAuth());
+
       if (!action.payload) {
+        console.log("clearing user");
         dispatch(clearUser());
       }
       setIsAuth(action.payload);
@@ -29,7 +31,7 @@ const ProtectedRoute = ({ children }: PropsWithChildren) => {
   }
 
   if (!isAuth) {
-    return <Navigate to={routes.SIGNIN} replace />;
+    return <Navigate to={routes.LANDING} replace />;
   }
   return children;
 };

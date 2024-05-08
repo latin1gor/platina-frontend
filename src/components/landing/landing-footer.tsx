@@ -4,7 +4,11 @@ const LandingFooter = () => {
   return (
     <>
       <div className={"relative top-[350px]"}>
-        <h1 className={"text-center text-stone-500 text-5xl font-thin px-20"}>
+        <h1
+          className={
+            "text-center text-stone-500 text-4xl md:text-5xl font-thin px-20 md:pb-10 pb-32"
+          }
+        >
           Join us to find your{" "}
           <span className={"text-gradient"}>perfect decision</span>
         </h1>

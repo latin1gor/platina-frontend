@@ -15,8 +15,9 @@ import {
 import { cn } from "@/lib/utils.ts";
 import { PayloadAction } from "@reduxjs/toolkit";
 
-type ChangePageCallback = (payload: number) => PayloadAction<number>;
-const Pages = () => {
+type ChangePageCallback = () => PayloadAction<any>;
+
+const ProductPagination = () => {
   const dispatch = useAppDispatch();
   const { totalCount, activePage, limit } = useAppSelector(
     (state) => state.device,
@@ -24,14 +25,14 @@ const Pages = () => {
 
   const pages = [];
   const pageCount = Math.ceil(totalCount / limit);
-  console.log(totalCount, limit, pageCount);
+  console.log(activePage, pageCount);
 
   for (let i = 0; i < pageCount; i++) {
     pages.push(i + 1);
   }
 
   const onChangePage = (actionCreator: ChangePageCallback) =>
-    dispatch(actionCreator(Number(localStorage.getItem("page"))));
+    dispatch(actionCreator());
 
   return (
     <Pagination className={"py-5"}>
@@ -40,7 +41,7 @@ const Pages = () => {
           <PaginationItem>
             <PaginationPrevious
               className={"cursor-pointer"}
-              onClick={() => onChangePage(setPreviousPage)}
+              onClick={() => activePage > 1 && onChangePage(setPreviousPage)}
             />
           </PaginationItem>
         )}
@@ -63,7 +64,9 @@ const Pages = () => {
           <PaginationItem>
             <PaginationNext
               className={"cursor-pointer"}
-              onClick={() => onChangePage(setNextPage)}
+              onClick={() =>
+                activePage < pageCount && onChangePage(setNextPage)
+              }
             />
           </PaginationItem>
         )}
@@ -71,4 +74,4 @@ const Pages = () => {
     </Pagination>
   );
 };
-export default Pages;
+export default ProductPagination;

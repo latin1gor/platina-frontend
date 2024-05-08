@@ -1,8 +1,12 @@
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import { fetchTypes } from "@/store/services/typeService.ts";
 
+interface ITypes {
+  rows: { id: number; name: string }[] | null;
+  count: number;
+}
 interface IType {
-  types: { id: number; name: string }[] | null;
+  types: ITypes | null;
   selectedType: { id: number } | null;
   loading: boolean;
   error: boolean | string;

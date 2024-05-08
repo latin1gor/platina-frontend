@@ -4,8 +4,8 @@ import { instance } from "@/api/axiosInstance.ts";
 interface FetchDevicesParams {
   brandId?: number | null;
   typeId?: number | null;
-  limit?: number;
-  page?: number;
+  limit?: number | null;
+  page?: number | null;
 }
 
 export const fetchDevices = createAsyncThunk<any, FetchDevicesParams>(
