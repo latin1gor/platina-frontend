@@ -25,7 +25,6 @@ const ProductPagination = () => {
 
   const pages = [];
   const pageCount = Math.ceil(totalCount / limit);
-  console.log(activePage, pageCount);
 
   for (let i = 0; i < pageCount; i++) {
     pages.push(i + 1);

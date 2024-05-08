@@ -15,7 +15,6 @@ const initialState: IUsersList = {
 export const getAllUsers = createAsyncThunk("users/get", async () => {
   try {
     const response = await instance.get("api/info");
-    console.log(response);
     return response.data;
   } catch (e) {
     console.error(e);
