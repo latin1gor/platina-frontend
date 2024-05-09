@@ -5,7 +5,11 @@ const LandingCompanies = () => {
         "flex flex-col justify-between w-full border-t border-b border-stone-800 text-center"
       }
     >
-      <h2 className={" text-center text-stone-100 text-4xl font-bold pt-14 "}>
+      <h2
+        className={
+          " text-center text-stone-100 text-2xl md:text-4xl font-bold pt-14 "
+        }
+      >
         Companies working with us
       </h2>
       <h3
@@ -29,15 +33,15 @@ const LandingCompanies = () => {
 
           <img
             src={"companies/insiders.png"}
-            className={"h-20 rounded-2xl opacity-80"}
+            className={"h-14 md:h-20 rounded-2xl opacity-80"}
           />
           <img
             src={"companies/nasa.png"}
-            className={"h-20 rounded-2xl opacity-80"}
+            className={"h-14 md:h-20 rounded-2xl opacity-80"}
           />
           <img
             src={"companies/apple.png"}
-            className={"h-20 rounded-2xl opacity-80"}
+            className={"h-14 md:h-20rounded-2xl opacity-80"}
           />
         </div>
 
@@ -46,16 +50,19 @@ const LandingCompanies = () => {
             "h-[550px] flex flex-col items-center pt-10 text-stone-100 text-2xl space-y-10  border-r border-l border-stone-800"
           }
         >
-          <h2 className={"mb-10"}>Sport</h2>
+          <h2 className={"mb-14 md:mb-10"}>Sport</h2>
 
           <img
             src={"companies/nike.png"}
-            className={"h-14 rounded-2xl opacity-80"}
+            className={"h-8 md:h-14 rounded-2xl opacity-80"}
           />
-          <img src={"companies/adidas.png"} className={"h-20  opacity-80"} />
+          <img
+            src={"companies/adidas.png"}
+            className={"h-14 md:h-20  opacity-80"}
+          />
           <img
             src={"companies/guess.png"}
-            className={"h-24 rounded-2xl opacity-80"}
+            className={"h-16 md:h-24 rounded-2xl opacity-80"}
           />
         </div>
         <div
@@ -67,15 +74,15 @@ const LandingCompanies = () => {
 
           <img
             src={"companies/bmw.png"}
-            className={"h-20 rounded-2xl opacity-80"}
+            className={"h-14 md:h-20 rounded-2xl opacity-80"}
           />
           <img
             src={"companies/mercedes.png"}
-            className={"h-20 rounded-2xl opacity-80"}
+            className={"h-14 md:h-20 rounded-2xl opacity-80"}
           />
           <img
             src={"companies/porsche.png"}
-            className={"h-20 rounded-2xl opacity-80"}
+            className={"h-14 md:h-20 rounded-2xl opacity-80"}
           />
         </div>
       </div>

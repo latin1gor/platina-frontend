@@ -31,7 +31,9 @@ const Landing = () => {
 
   return (
     <>
-      <div className={"md:m-32 md:mt-48 border border-stone-800"}>
+      <div
+        className={"md:m-32 md:mt-48 border border-stone-800 overflow-x-hidden"}
+      >
         <LandingHeader />
         <LandingCompanies />
         <LandingPrices />

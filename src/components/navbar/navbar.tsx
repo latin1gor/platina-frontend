@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button.tsx";
 import { Tab, Tabs } from "@/router/tabs.ts";
 import { setSelectedTab } from "@/store/ui/headerSlice.ts";
 import { clsx } from "clsx";
-import ShoppingBasket from "@/components/navbar/shopping-basket.tsx";
+import ShoppingBasket from "@/components/basket/shopping-basket.tsx";
 import { useResponsive } from "@/hooks/useResponsive.tsx";
 import { clearUser } from "@/store/features/auth/userSlice.ts";
 

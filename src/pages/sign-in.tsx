@@ -46,18 +46,21 @@ const SignIn = () => {
 
   return (
     <div
-      className={"flex justify-between h-screen w-full max-w-screen-2xl m-auto"}
+      className={
+        "flex justify-between h-screen w-[100vw] max-w-screen-2xl m-auto small-auth"
+      }
     >
-      <div className={"w-0 md:w-1/2 m-4  mb-4"}>
+      <div className={"w-0 md:w-1/2 md:m-4 md:mb-4"}>
         <img
           className={"w-0 md:w-[100%] md:h-[100%] rounded-2xl bg-cover"}
           src={"./sign-in-bg.webp"}
           alt={"Purple linear modern image"}
         />
       </div>
+
       <div
         className={
-          "flex flex-1 flex-col w-full md:w-1/2 h-full items-center p-6 md:p-14 xl:p-32 rounded-2xl drop-shadow-2xl"
+          "flex flex-col w-full md:w-1/2 h-full items-center p-6 md:p-14 xl:p-32 rounded-2xl drop-shadow-2xl"
         }
       >
         <div className={"w-full flex flex-col justify-around h-full"}>

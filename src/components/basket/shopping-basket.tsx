@@ -6,7 +6,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover.tsx";
 import { useAppSelector } from "@/hooks/useStore.tsx";
-import BasketItem from "@/components/navbar/basket-item.tsx";
+import BasketItem from "@/components/basket/basket-item.tsx";
 import { Separator } from "@/components/ui/separator.tsx";
 import { cn } from "@/lib/utils.ts";
 
@@ -38,7 +38,9 @@ const ShoppingBasket = () => {
         <div className={"p-4"}>{count} items in bag</div>
         <Separator />
         {products.length ? (
-          products.map((item) => <BasketItem id={item.id} />)
+          products.map((item) => (
+            <BasketItem key={crypto.randomUUID()} id={item.id} />
+          ))
         ) : (
           <div className={"flex flex-col justify-center items-center h-40"}>
             <SmilePlus size={32} />

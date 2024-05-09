@@ -2,21 +2,24 @@ import { createContext, PropsWithChildren, useEffect, useState } from "react";
 
 interface IResponsiveContext {
   isSmallScreen: boolean;
+  isMediumScreen: boolean;
 }
 
 const defaultValue: IResponsiveContext = {
   isSmallScreen: false,
+  isMediumScreen: false,
 };
 
 export const ResponsiveContext =
   createContext<IResponsiveContext>(defaultValue);
 
 const ResponsiveProvider = ({ children }: PropsWithChildren) => {
-  const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
-
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [isMediumScreen, setIsMediumScreen] = useState(false);
   useEffect(() => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth < 768);
+      setIsMediumScreen(window.innerWidth < 1200);
     };
     window.addEventListener("resize", handleResize);
     handleResize();
@@ -28,6 +31,7 @@ const ResponsiveProvider = ({ children }: PropsWithChildren) => {
 
   const responsiveContextValue: IResponsiveContext = {
     isSmallScreen,
+    isMediumScreen,
   };
 
   return (

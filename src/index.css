@@ -138,3 +138,13 @@
     opacity: 1;
   }
 }
+
+.small-auth{
+  background-color: black;
+}
+
+@media (max-width: 767px) {
+  .small-auth{
+    background-image: radial-gradient(at right bottom, rgb(0, 0, 0), rgb(0, 0, 0), rgb(88, 28, 135));
+  }
+}

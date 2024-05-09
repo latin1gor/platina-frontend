@@ -22,14 +22,14 @@ const LandingHeader = () => {
   return (
     <div
       className={
-        "flex flex-col w-full h-screen text-center items-center justify-start bg-black p-5 lg:p-14 md:p-16 pt-14"
+        "flex flex-col w-full md:h-screen text-center items-center justify-start bg-black p-5 lg:p-14 md:p-16 pt-14"
       }
     >
       <div className={"flex flex-col space-y-10"}>
         <div className={"flex flex-col "}>
           <h1
             className={
-              "text-gradient text-4xl pt-5 sm:pt-10 md:text-4xl lg:text-5xl  xl:text-6xl text-center font-bold animated-block opacity-animation pb-2 mb-2"
+              "text-gradient text-3xl pt-5 sm:pt-10 md:text-4xl lg:text-5xl  xl:text-6xl text-center font-bold animated-block opacity-animation pb-2 mb-2"
             }
           >
             Unveil a World of Choice, Quality, and Convenience - Your Premier
@@ -52,7 +52,7 @@ const LandingHeader = () => {
           <form
             onSubmit={(e) => onEmailSubmit(e)}
             className={
-              "flex flex-col lg:flex-row items-center justify-evenly w-[45%] m-auto opacity-block gap-4"
+              "flex flex-col lg:flex-row items-center justify-evenly w-full sm:w-[45%] m-auto opacity-block gap-4"
             }
           >
             <Input
@@ -63,7 +63,7 @@ const LandingHeader = () => {
             />
             <Button
               className={
-                " bg-gradient w-full lg:w-[50%] hover:shadow-lg hover:shadow-indigo-500/40 transition duration-300 ease-in-out text-sm xs:text-md"
+                "bg-gradient w-full lg:w-[50%] hover:shadow-lg hover:shadow-indigo-500/40 transition duration-300 ease-in-out text-sm xs:text-md"
               }
             >
               Start shipping

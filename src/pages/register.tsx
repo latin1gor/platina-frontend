@@ -21,11 +21,13 @@ import { FormError } from "@/components/auth/form-error.tsx";
 import { useEmail } from "@/hooks/useEmail.tsx";
 import { useEffect } from "react";
 import { ChevronLeft } from "lucide-react";
+import { useResponsive } from "@/hooks/useResponsive.tsx";
 
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { error } = useAppSelector((state) => state.user);
+  const { isSmallScreen } = useResponsive();
   const { email } = useEmail();
 
   useEffect(() => {
@@ -51,7 +53,7 @@ const Register = () => {
   return (
     <div
       className={
-        "md:flex justify-between h-screen w-full max-w-screen-2xl m-auto"
+        "md:flex justify-between h-screen w-full max-w-screen-2xl m-auto small-auth"
       }
     >
       <div
@@ -69,12 +71,8 @@ const Register = () => {
               onClick={() => navigate(routes.LANDING)}
             />
             <div className={"flex w-full justify-center items-center pr-6"}>
-              <h1
-                className={
-                  "text-2xl sm:text-3xl md:text-4xl font-black text-zinc-200 text-center"
-                }
-              >
-                Create an account
+              <h1 className={"text-5xl font-black text-center"}>
+                {isSmallScreen ? "Register" : "Create an account"}
               </h1>
             </div>
           </div>
@@ -141,7 +139,7 @@ const Register = () => {
           </Form>
         </div>
       </div>
-      <div className={"w-0 md:w-1/2 m-4  mb-4"}>
+      <div className={"w-0 md:w-1/2 m-4 mb-4"}>
         <img
           className={"w-0 md:w-[100%] md:h-[100%] rounded-2xl bg-cover"}
           src={"sign-up-bg.jpg"}

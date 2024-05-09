@@ -16,6 +16,11 @@ import { fetchOneDevice } from "@/store/services/deviceService.ts";
 import { Device } from "@/types/device.ts";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore.tsx";
 import { addProduct, setTotal } from "@/store/features/navbar/basketSlice.ts";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog.tsx";
 
 const DevicePage = () => {
   const [device, setDevice] = useState<Device | null>(null);
@@ -45,13 +50,26 @@ const DevicePage = () => {
           }
         >
           <div className={"flex flex-col md:flex-row w-full justify-between"}>
-            <Image
-              className={"w-[90vw] h-96 md:w-[500px] md:h-[500px]"}
-              containerClassName={
-                " lg:w-[500px] lg:h-[500px] m-0 md:m-10  md:ml-0  lg:w-[39%]"
-              }
-              src={import.meta.env.VITE_API_URL + "/" + device.img}
-            />
+            <Dialog>
+              <DialogTrigger
+                tabIndex={0}
+                className={
+                  "lg:h-[500px] m-0 mt-2 md:m-10  md:ml-0  lg:w-[39%] focus:outline-none focus:ring-2 focus:ring-purple-800 focus:rounded-2xl"
+                }
+              >
+                <Image
+                  className={"w-[100vw] h-96 md:h-[500px] md:w-[900px]"}
+                  src={import.meta.env.VITE_API_URL + "/" + device.img}
+                />
+              </DialogTrigger>
+              <DialogContent className={""}>
+                <Image
+                  className={"w-[800px] h-96 md:h-[500px]"}
+                  src={import.meta.env.VITE_API_URL + "/" + device.img}
+                />
+              </DialogContent>
+            </Dialog>
+
             <div className={"flex flex-col justify-around w-full md:w-[55%]"}>
               <div
                 className={
@@ -118,7 +136,7 @@ const DevicePage = () => {
             </TableHeader>
             <TableBody>
               {device.info.map((property) => (
-                <TableRow key={property.number}>
+                <TableRow key={crypto.randomUUID()}>
                   <TableCell className="font-medium">
                     {property.title}
                   </TableCell>
